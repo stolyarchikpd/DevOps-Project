@@ -23,7 +23,7 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-    - name: Build and push Docker images
+    - name: Build and push Backend Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
@@ -31,4 +31,10 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-backend:latest
 
-    - name: Build and push Frontend
+    - name: Build and push Frontend Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./frontend/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-frontend:latest
