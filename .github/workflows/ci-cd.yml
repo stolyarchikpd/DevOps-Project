@@ -29,7 +29,7 @@ jobs:
         context: .
         file: ./Backend/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-backend:latest
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-Backend:latest
 
     - name: Build and push Frontend Docker image
       uses: docker/build-push-action@v5
@@ -37,4 +37,4 @@ jobs:
         context: .
         file: ./Frontend/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-frontend:latest
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-Frontend:latest
