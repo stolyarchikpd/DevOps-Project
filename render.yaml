@@ -1,0 +1,16 @@
+version: 2
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    env:
+      DATABASE_URL: ${DATABASE_URL}
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
