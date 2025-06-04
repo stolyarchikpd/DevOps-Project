@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   backend:
-    build: ./Backend
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     environment:
@@ -12,7 +14,9 @@ services:
       - mongo
 
   frontend:
-    build: ./Frontend
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
 
