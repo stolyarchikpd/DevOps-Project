@@ -23,22 +23,18 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: Build and Push Backend Image
+          = name: Build and Push Backend Image
         uses: docker/build-push-action@v5
         with:
           context: ./Backend
           file: ./Backend/Dockerfile
           push: true
-          tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-backend:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-backend:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-backend:latest
 
-      - name: Build and Push Frontend Image
+        -name: Build and Push Frontend Image
         uses: docker/build-push-action@v5
         with:
           context: ./Frontend
           file: ./Frontend/Dockerfile
           push: true
-          tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-frontend:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-frontend:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-frontend:latest
