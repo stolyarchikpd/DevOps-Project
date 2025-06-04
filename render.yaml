@@ -1,17 +1,18 @@
 version: 2
 services:
-  backend:
+  bookshelf:
     build:
       context: ./Backend
       dockerfile: Dockerfile
-    ports:
-      - 8000:8000
     env:
-      MONGO_URI: ${MONGO_URI}
-      MONGO_DB_NAME: devopsdb
+      FORGO_DIR: ${FORGO_DIR}
+      FORGO_DR_IMPSE: dengush  
+    ports:
+      - "5000:5000"  
+
   frontend:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - "3000:3000"  
