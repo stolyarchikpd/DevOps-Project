@@ -7,7 +7,8 @@ services:
     ports:
       - 8000:8000
     env:
-      DATABASE_URL: ${DATABASE_URL}
+      MONGO_URI: ${MONGO_URI}
+      MONGO_DB_NAME: devopsdb
   frontend:
     build:
       context: ./Frontend

@@ -1,33 +1,20 @@
 from fastapi import FastAPI
-from sqlalchemy.orm import Session
-from models import Item, Base
-from database import engine, SessionLocal
+from database import db
 
 app = FastAPI()
 
-Base.metadata.create_all(bind=engine)
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 @app.get("/")
 def read_root():
-    return {"message": "Тест проекта"}
-
-@app.get("/items")
-def read_items():
-    db = SessionLocal()
-    items = db.query(Item).all()
-    return {"items": [item.name for item in items]}
+    return {"message": "Привет, ПСБ"}
 
 @app.get("/items/add/{name}")
 def add_item(name: str):
-    db = SessionLocal()
-    new_item = Item(name=name)
-    db.add(new_item)
-    db.commit()
+    collection = db["items"]
+    collection.insert_one({"name": name})
     return {"status": "Item added"}
+
+@app.get("/items")
+def get_items():
+    collection = db["items"]
+    items = list(collection.find({}, {"_id": 0}))  # Не возвращаем _id
+    return {"items": items}
