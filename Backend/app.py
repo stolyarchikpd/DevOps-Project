@@ -16,5 +16,5 @@ def add_item(name: str):
 @app.get("/items")
 def get_items():
     collection = db["items"]
-    items = list(collection.find({}, {"_id": 0}))  # Не возвращаем _id
+    items = list(collection.find({}, {"_id": 0}))  
     return {"items": items}
