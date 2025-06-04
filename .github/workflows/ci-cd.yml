@@ -23,7 +23,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: Build and push Backend Docker image
+      - name: Build and Push Backend Image
         uses: docker/build-push-action@v5
         with:
           context: ./Backend
@@ -33,7 +33,7 @@ jobs:
             ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-backend:latest
             ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-backend:${{ github.sha }}
 
-      - name: Build and push Frontend Docker image
+      - name: Build and Push Frontend Image
         uses: docker/build-push-action@v5
         with:
           context: ./Frontend
@@ -42,15 +42,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-frontend:latest
             ${{ secrets.DOCKER_HUB_USERNAME }}/devops-project-frontend:${{ github.sha }}
-
-      - name: Install Docker Compose
-        if: ${{ contains(github.event.head_commit.message, 'compose') || contains(github.event.pull_request.title, 'compose') }}
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.7/docker-compose-$(uname  -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-
-      - name: Run docker-compose down
-        if: ${{ always() && steps.install-docker-compose.outcome == 'success' }}
-        id: compose-down
-        run: |
-          docker-compose down || echo "No running containers or docker-compose.yaml not found"
